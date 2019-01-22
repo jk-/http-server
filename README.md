@@ -7,4 +7,4 @@ Create a really basic http server
 
 NOTES:
 
-the server has to be seperate from the app
+work on get parameters

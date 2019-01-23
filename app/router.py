@@ -32,14 +32,19 @@ def parse_rule(rule):
         yield None, None, remaining
 
 class Router:
-    map = []
+
+    map = {}
     view_func = {}
 
     def __init__(self):
         pass
 
+    def get_route_dispatch(self, path_route):
+        if path_route in self.map.keys():
+            return self.view_func[self.map[path_route]]
+
     # decorator for injecting routes into the app
-    def route(self, path_route, **options):
+    def route(self, path_route=None, **options):
         def route_decorator(f):
             endpoint = options.pop('endpoint', None)
             self.compile(path_route, endpoint, f, **options)
@@ -49,23 +54,24 @@ class Router:
     def compile(self, path_route, endpoint=None, view_func=None, **options):
         if endpoint is None:
             endpoint = view_func.__name__
+        self.map[path_route] = endpoint
         self.view_func[endpoint] = view_func
+        '''
         itr = 0
         for converter, args, variable in parse_rule(path_route):
             if converter is None:
-                self.map[itr] = { path_route : endpoint }
+                self.map[path_route] = { path_route : endpoint }
             else:
                 # would have to decriment the itr to push into previous parse
                 pass
-            itr += 1
+            itr = itr + 1
         print(self.map)
 
-    '''
-    Need to loop over parse_rule and split out converter, args, variable
-    if converter the variable is attached to the previous generater
-    /sayhello/<username>
-    if static identified from parse_url split on / to get path
-    add to url routes and atttached the dispatcher
-    would need to keep track of index on the itr to attache variable
-    need to convert the variable to a string|int
-    '''
+        Need to loop over parse_rule and split out converter, args, variable
+        if converter the variable is attached to the previous generater
+        /sayhello/<username>
+        if static identified from parse_url split on / to get path
+        add to url routes and atttached the dispatcher
+        would need to keep track of index on the itr to attache variable
+        need to convert the variable to a string|int
+        '''

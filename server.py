@@ -6,6 +6,7 @@ from app.router import Router
 from http_server import Server
 
 app = SimpleApp()
+Router = Router()
 
 @Router.route("/")
 def index():

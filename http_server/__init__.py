@@ -6,7 +6,7 @@ from http_server.request import Request
 from http_server.response import Response
 
 class Server(object):
-    
+
     running = False
 
     def __init__(self, host="", port=1337, queue_size=0):
@@ -56,7 +56,6 @@ class Server(object):
         try:
             response.add_status('HTTP/1.1 200 OK')
             f = self.env.dispatch_request(self.request.request_path)
-            #print(f(**self.request.get_params))
             response.add_body(f())
         except:
             response.add_status('HTTP/1.1 404 Not Found')

@@ -1,19 +1,25 @@
 import socket
 
 from app import SimpleApp
+from app.router import Router
+
 from http_server import Server
 
 app = SimpleApp()
 
-@app.route("/")
+@Router.route("/")
 def index():
     return "This is the index page"
 
-@app.route("/test")
+@Router.route("/test")
 def test():
     return "<strong>This is the test page<strong>"
 
-@app.route("/sayhello/<username>", methods=["GET"])
+@Router.route("/sayhello", methods=["GET"])
+def hello_no_name():
+    return "Hello"
+
+@Router.route("/sayhello/<username>", methods=["GET"])
 def hello(username):
     return "Hello {0}".format(username)
 

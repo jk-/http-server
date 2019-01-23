@@ -6,9 +6,7 @@ from http_server.request import Request
 from http_server.response import Response
 
 class Server(object):
-
-    #__slots__ = ["host", "port", "queue_size", "client", "addr", "headers"]
-
+    
     running = False
 
     def __init__(self, host="", port=1337, queue_size=0):

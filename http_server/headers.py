@@ -9,19 +9,18 @@ class HttpHeaders(object):
             self._parse_context()
 
     def _parse_context(self):
-        s = self.context.decode('utf-8').split("\r\n")
-        self.status = s[0]
-        for i in s[1:-2]:
+        self.context_parsed = self.context.decode('utf-8').split("\r\n")
+        for i in self.context_parsed[1:-2]:
             if i is None:
                 continue
             (key, value) = i.split(": ")
-            self.params[key] = value
+            self.add(key, value)
+
+    def get_status(self):
+        return self.context_parsed[0] if self.context_parsed else ""
 
     def add(self, key, value):
         self.params[key] = value
-
-    def getRequestPath(self):
-        return self.status.split(' ')[1]
 
     def concat(self):
         t = []

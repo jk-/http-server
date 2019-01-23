@@ -13,17 +13,15 @@ def index():
 def test():
     return "<doctype html><html><header><title>Test</title></header><body><strong>This is the test page<strong></body></html>"
 
-'''
-work on get parameters
-@app.route("/sayhello", methods=["GET"])
-def hello(name):
-    return "Hello {0}".format(name)
-'''
+@app.route("/sayhello/<username>", methods=["GET"])
+def hello(username):
+    return "Hello {0}".format(username)
 
 if __name__ == "__main__":
-    # not ideal just testing a request and response
     http_server = Server('', 1337, 5)
-    http_server.env(app)
-    http_server.run()
+    http_server.run(app)
     while 1:
-        http_server.accept()
+        try:
+            http_server.handle_request()
+        finally:
+            http_server.stop()

@@ -7,4 +7,7 @@ Create a really basic http server
 
 NOTES:
 
-work on get parameters
+
+
+Server just hangs when a request GET has no valid route
+work on get Parameters

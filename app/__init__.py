@@ -1,6 +1,5 @@
 
 
-# this needs to abstract a server environment for handling requests
 class SimpleApp():
 
     url_map = {}
@@ -22,9 +21,6 @@ class SimpleApp():
             return f
         return route_decorator
 
-    # dont like this, not decoupled
-    def dispatchRequest(self, path_route):
+    def dispatch_request(self, path_route):
         if path_route in self.url_map.keys():
-            return self.view_func[self.url_map[path_route]]()
-        else:
-            return ""
+            return self.view_func[self.url_map[path_route]]

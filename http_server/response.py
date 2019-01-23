@@ -9,13 +9,13 @@ class Response(object):
         self.headers = HttpHeaders()
         self.body = ""
 
-    def addHeader(self, key, value):
+    def add_header(self, key, value):
         self.headers.add(key, value)
 
-    def addStatus(self, value):
+    def add_status(self, value):
         self.status = value
 
-    def addBody(self, value):
+    def add_body(self, value):
         self.headers.add('Content-Length', len(value))
         self.body = value
 
